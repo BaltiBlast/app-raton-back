@@ -7,6 +7,9 @@ const router = require("./router");
 
 const { PORT } = process.env;
 const server = express();
+
+server.use(express.json());
+server.use(express.urlencoded({ extended: true }));
 server.use(router);
 
 server.listen(PORT, () => {
