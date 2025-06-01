@@ -1,11 +1,16 @@
 const CoreMapper = require("./core.mapper");
-const userSchema = require("../schemas/user.schema");
+const userSchema = require("../schemas/user/createUser.schema");
 
 class UserMapper extends CoreMapper {
+  user = this.mongoose.model("User", userSchema);
+
   async createUser(userData) {
-    const User = this.mongoose.model("users", userSchema);
-    const newUser = new User(userData);
+    const newUser = new this.user(userData);
     return await newUser.save();
+  }
+
+  async deleteUserById(userId) {
+    return await this.user.findByIdAndDelete(userId);
   }
 }
 
