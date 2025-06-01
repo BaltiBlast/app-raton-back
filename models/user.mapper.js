@@ -12,6 +12,10 @@ class UserMapper extends CoreMapper {
   async deleteUserById(userId) {
     return await this.user.findByIdAndDelete(userId);
   }
+
+  async findUserById(userId) {
+    return await this.user.findById(userId);
+  }
 }
 
 module.exports = UserMapper;

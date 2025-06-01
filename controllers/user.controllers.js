@@ -22,6 +22,17 @@ const userControllers = {
       res.status(500).json({ success: false, error: error.message });
     }
   },
+
+  getUserById: async (req, res) => {
+    try {
+      const userId = req.params.id;
+      const user = await UserMapper.findUserById(userId);
+      res.status(201).json({ success: true, data: user });
+    } catch (error) {
+      console.error("❌ Erreur récupération utilisateur:", error);
+      res.status(500).json({ success: false, error: error.message });
+    }
+  },
 };
 
 module.exports = userControllers;
