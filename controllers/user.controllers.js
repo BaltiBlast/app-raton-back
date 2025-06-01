@@ -33,6 +33,30 @@ const userControllers = {
       res.status(500).json({ success: false, error: error.message });
     }
   },
+
+  updateUserById: async (req, res) => {
+    try {
+      const userId = req.params.id;
+
+      const updateUserData = { ...req.body };
+
+      delete updateUserData.user_email;
+      delete updateUserData.password;
+      delete updateUserData._id;
+      delete updateUserData.createdAt;
+      delete updateUserData.updatedAt;
+
+      const updateUser = await UserMapper.updateUserById(userId, updateUserData);
+
+      res.status(200).json({
+        success: true,
+        data: updateUser.toJSON(),
+      });
+    } catch (error) {
+      console.error("❌ Erreur MAJ utilisateur:", error);
+      res.status(500).json({ success: false, error: error.message });
+    }
+  },
 };
 
 module.exports = userControllers;

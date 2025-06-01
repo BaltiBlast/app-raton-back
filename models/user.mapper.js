@@ -16,6 +16,13 @@ class UserMapper extends CoreMapper {
   async findUserById(userId) {
     return await this.user.findById(userId);
   }
+
+  async updateUserById(userId, updateUserData) {
+    return await this.user.findByIdAndUpdate(userId, updateUserData, {
+      new: true,
+      runValidators: true,
+    });
+  }
 }
 
 module.exports = UserMapper;
