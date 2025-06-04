@@ -22,7 +22,7 @@ const authControllers = {
         res.status(500).json({ success: false, message: "Les identifiants ne sont bons" });
       }
 
-      req.session.user = { ...user };
+      req.session.user = user;
       res.status(200).json({ success: true, message: "Utilisateur connecté", user });
     } catch (error) {
       console.error("❌ Erreur connexion utilisateur:", error);

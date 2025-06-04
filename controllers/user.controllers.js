@@ -3,7 +3,7 @@ const { UserMapper } = require("../models/index.mapper");
 const userControllers = {
   deleteUserById: async (req, res) => {
     try {
-      const userId = req.params.id;
+      const userId = req.session.user._id;
       const deleteUser = await UserMapper.deleteUserById(userId);
       res.status(201).json({ success: true, data: deleteUser });
     } catch (error) {
@@ -14,7 +14,7 @@ const userControllers = {
 
   getUserById: async (req, res) => {
     try {
-      const userId = req.params.id;
+      const userId = req.session.user._id;
       const user = await UserMapper.findUserById(userId);
       res.status(201).json({ success: true, data: user });
     } catch (error) {
@@ -25,7 +25,7 @@ const userControllers = {
 
   updateUserById: async (req, res) => {
     try {
-      const userId = req.params.id;
+      const userId = req.session.user._id;
 
       const updateUserData = { ...req.body };
 

@@ -10,9 +10,9 @@ const { register, login, logout } = require("./controllers/auth.controllers");
 
 // ROUTES //
 // User
-router.put("/user/:id", updateUserById);
-router.delete("/user/:id", deleteUserById);
-router.get("/user/:id", getUserById);
+router.get("/user", getUserById);
+router.put("/user", updateUserById);
+router.delete("/user", deleteUserById);
 
 // Auth
 router.post("/register", register);
