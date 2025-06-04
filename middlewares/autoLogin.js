@@ -14,7 +14,6 @@ const triggerAutoLogin = (port) => {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
-          "Content-Length": postData.length,
         },
       },
       (res) => {
@@ -25,7 +24,7 @@ const triggerAutoLogin = (port) => {
     req.on("error", () => console.log("❌ Auto-login error"));
     req.write(postData);
     req.end();
-  }, 2000);
+  }, 1000);
 };
 
 module.exports = triggerAutoLogin;
