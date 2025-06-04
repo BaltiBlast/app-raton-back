@@ -2,7 +2,6 @@
 const express = require("express");
 require("dotenv").config();
 const session = require("express-session");
-const triggerAutoLogin = require("./middlewares/autoLogin");
 
 // Local imports
 const router = require("./router");
@@ -33,5 +32,4 @@ server.use(router);
 
 server.listen(PORT, () => {
   console.log(`The broche is turning on http://localhost:${PORT}`);
-  triggerAutoLogin(PORT);
 });

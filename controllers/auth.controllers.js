@@ -1,9 +1,31 @@
 const { UserMapper } = require("../models/index.mapper");
+const bcrypt = require("bcrypt");
 
 const authControllers = {
+  // ----------------------------------------------------------------------------------------------------- //
+  // Add new user to DB
   register: async (req, res) => {
     try {
-      const userData = req.body;
+      const { user_email, password, user_firstname, user_lastname, user_address, user_phone } = req.body;
+      const { street_number, street_name, postal_code, city, country } = user_address;
+
+      const hashedPassword = await bcrypt.hash(password, 10);
+
+      const userData = {
+        user_email: user_email,
+        password: hashedPassword,
+        user_firstname: user_firstname,
+        user_lastname: user_lastname,
+        user_address: {
+          street_number: street_number,
+          street_name: street_name,
+          postal_code: postal_code,
+          city: city,
+          country: country,
+        },
+        user_phone: user_phone,
+      };
+
       const newUser = await UserMapper.createUser(userData);
       res.status(201).json({ success: true, data: newUser });
     } catch (error) {
@@ -12,14 +34,17 @@ const authControllers = {
     }
   },
 
+  // ----------------------------------------------------------------------------------------------------- //
+  // Log user already register
   login: async (req, res) => {
     try {
       const { user_email, password } = req.body;
       const user = await UserMapper.findUserByEmail(user_email);
-      const isPasswordMatch = password === user.password;
+      const hashedPassword = user.password;
+      const isPasswordMatch = await bcrypt.compare(password, hashedPassword);
 
       if (!isPasswordMatch) {
-        res.status(500).json({ success: false, message: "Les identifiants ne sont bons" });
+        res.status(500).json({ success: false, message: "Informations invalides" });
       }
 
       req.session.user = user;
@@ -30,6 +55,8 @@ const authControllers = {
     }
   },
 
+  // ----------------------------------------------------------------------------------------------------- //
+  // Destroy current session (logout user)
   logout: (req, res) => {
     try {
       req.session.destroy();
