@@ -8,6 +8,9 @@ const { deleteUserById, getUserById, updateUserById } = require("./controllers/u
 // Auth
 const { register, login, logout } = require("./controllers/auth.controllers");
 
+// Customer
+const { getCustomers, addCustomer, updateCustomer, deleteCustomer } = require("./controllers/customer.controllers");
+
 // ROUTES //
 // User
 router.get("/user", getUserById);
@@ -18,5 +21,11 @@ router.delete("/user", deleteUserById);
 router.post("/register", register);
 router.post("/login", login);
 router.get("/logout", logout);
+
+// Customer
+router.get("/customers", getCustomers);
+router.post("/customer", addCustomer);
+router.put("/customer", updateCustomer);
+router.delete("/customer", deleteCustomer);
 
 module.exports = router;
