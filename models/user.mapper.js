@@ -13,6 +13,10 @@ class UserMapper extends CoreMapper {
     return await this.user.findByIdAndDelete(userId);
   }
 
+  async findUserByEmail(email) {
+    return await this.user.findOne({ user_email: email });
+  }
+
   async findUserById(userId) {
     return await this.user.findById(userId);
   }
