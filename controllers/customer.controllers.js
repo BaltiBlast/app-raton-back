@@ -38,18 +38,22 @@ const customerControllers = {
       delete updateCustomerData.user_id;
 
       const updateCustomer = await CustomerMapper.updateCustomer(customerId, updateCustomerData);
-      res.status(200).json({
-        success: true,
-        data: updateCustomer.toJSON(),
-      });
+      res.status(200).json({ success: true, data: updateCustomer });
     } catch (error) {
       console.error("❌ Erreur MAJ customer:", error);
       res.status(500).json({ success: false, error: error.message });
     }
   },
 
-  getCustomers: (req, res) => {
-    console.log("GET");
+  getCustomers: async (req, res) => {
+    try {
+      const userId = req.session.user._id;
+      const userCustomers = await CustomerMapper.getAllUserCustomers(userId);
+      res.status(200).json({ success: true, data: userCustomers });
+    } catch (error) {
+      console.error("❌ Erreur récupération des customers de l'utilisateur:", error);
+      res.status(500).json({ success: false, error: error.message });
+    }
   },
 
   deleteCustomer: async (req, res) => {
