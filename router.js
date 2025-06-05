@@ -25,7 +25,7 @@ router.get("/logout", logout);
 // Customer
 router.get("/customers", getCustomers);
 router.post("/customer", addCustomer);
-router.put("/customer", updateCustomer);
-router.delete("/customer", deleteCustomer);
+router.put("/customer/:customerId", updateCustomer);
+router.delete("/customer/:customerId", deleteCustomer);
 
 module.exports = router;

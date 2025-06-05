@@ -26,35 +26,11 @@ const customersSchema = new mongoose.Schema(
     },
 
     customer_address: {
-      type: {
-        street_number: {
-          type: String,
-          required: [true, "Le numéro de rue est obligatoire"],
-          trim: true,
-        },
-        street_name: {
-          type: String,
-          required: [true, "Le nom de rue est obligatoire"],
-          trim: true,
-        },
-        postal_code: {
-          type: String,
-          required: [true, "Le code postal est obligatoire"],
-          trim: true,
-        },
-        city: {
-          type: String,
-          required: [true, "La ville est obligatoire"],
-          trim: true,
-        },
-        country: {
-          type: String,
-          required: [true, "Le pays est obligatoire"],
-          trim: true,
-        },
-      },
-      required: [true, "L'adresse complète est obligatoire"],
-      description: "Client's address",
+      street_number: { type: String, required: true },
+      street_name: { type: String, required: true },
+      postal_code: { type: String, required: true },
+      city: { type: String, required: true },
+      country: { type: String, required: true, default: "France" },
     },
 
     customer_phone: {
