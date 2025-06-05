@@ -1,17 +1,8 @@
 const { UserMapper } = require("../models/index.mapper");
 
 const userControllers = {
-  deleteUserById: async (req, res) => {
-    try {
-      const userId = req.session.user._id;
-      const deleteUser = await UserMapper.deleteUserById(userId);
-      res.status(201).json({ success: true, data: deleteUser });
-    } catch (error) {
-      console.error("❌ Erreur suppréssion utilisateur:", error);
-      res.status(500).json({ success: false, error: error.message });
-    }
-  },
-
+  // ----------------------------------------------------------------------------------------------------- //
+  // Get user by his id
   getUserById: async (req, res) => {
     try {
       const userId = req.session.user._id;
@@ -23,6 +14,8 @@ const userControllers = {
     }
   },
 
+  // ----------------------------------------------------------------------------------------------------- //
+  // Update user in DB
   updateUserById: async (req, res) => {
     try {
       const userId = req.session.user._id;
@@ -43,6 +36,19 @@ const userControllers = {
       });
     } catch (error) {
       console.error("❌ Erreur MAJ utilisateur:", error);
+      res.status(500).json({ success: false, error: error.message });
+    }
+  },
+
+  // ----------------------------------------------------------------------------------------------------- //
+  // Delete user with his id
+  deleteUserById: async (req, res) => {
+    try {
+      const userId = req.session.user._id;
+      const deleteUser = await UserMapper.deleteUserById(userId);
+      res.status(201).json({ success: true, data: deleteUser });
+    } catch (error) {
+      console.error("❌ Erreur suppréssion utilisateur:", error);
       res.status(500).json({ success: false, error: error.message });
     }
   },
