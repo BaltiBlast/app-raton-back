@@ -21,7 +21,7 @@ class UserMapper extends CoreMapper {
   }
 
   async deleteNoteById(noteId) {
-    return await this.customer.findByIdAndDelete(noteId);
+    return await this.note.findByIdAndDelete(noteId);
   }
 }
 

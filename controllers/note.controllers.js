@@ -45,7 +45,16 @@ const noteControllers = {
 
   // ----------------------------------------------------------------------------------------------------- //
   // Delete note to DB
-  deleteNote: () => {},
+  deleteNote: async (req, res) => {
+    try {
+      const noteId = req.params.noteId;
+      const deleteNote = await NoteMapper.deleteNoteById(noteId);
+      res.status(201).json({ success: true, data: deleteNote });
+    } catch (error) {
+      console.error("❌ Erreur suppréssion note:", error);
+      res.status(500).json({ success: false, error: error.message });
+    }
+  },
 };
 
 module.exports = noteControllers;
