@@ -33,8 +33,8 @@ router.get("/customers", getCustomers);
 
 // Note
 router.post("/note", addNote);
-router.put("/note:noteId", updateNote);
-router.delete("/note:noteId", deleteNote);
+router.put("/note/:noteId", updateNote);
+router.delete("/note/:noteId", deleteNote);
 router.get("/notes", getUserNotes);
 
 module.exports = router;

@@ -24,7 +24,20 @@ const noteControllers = {
 
   // ----------------------------------------------------------------------------------------------------- //
   // Update note to DB
-  updateNote: () => {},
+  updateNote: async (req, res) => {
+    try {
+      const noteId = req.params.noteId;
+      const updatedNoteData = { ...req.body };
+
+      delete updatedNoteData.user_id;
+
+      const updateNote = await NoteMapper.updateNote(noteId, updatedNoteData);
+      res.status(201).json({ success: true, data: updateNote });
+    } catch (error) {
+      console.error("❌ Erreur MAJ note:", error);
+      res.status(500).json({ success: false, error: error.message });
+    }
+  },
 
   // ----------------------------------------------------------------------------------------------------- //
   // Get all user's notes
