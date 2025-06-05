@@ -1,6 +1,8 @@
 const { CustomerMapper } = require("../models/index.mapper");
 
 const customerControllers = {
+  // ----------------------------------------------------------------------------------------------------- //
+  // Add new customer to DB
   addCustomer: async (req, res) => {
     try {
       const { customer_email, customer_name, customer_address, customer_phone } = req.body;
@@ -30,6 +32,8 @@ const customerControllers = {
     }
   },
 
+  // ----------------------------------------------------------------------------------------------------- //
+  // Update customer to DB
   updateCustomer: async (req, res) => {
     try {
       const customerId = req.params.customerId;
@@ -45,6 +49,8 @@ const customerControllers = {
     }
   },
 
+  // ----------------------------------------------------------------------------------------------------- //
+  // Get all user's customers
   getCustomers: async (req, res) => {
     try {
       const userId = req.session.user._id;
@@ -56,6 +62,8 @@ const customerControllers = {
     }
   },
 
+  // ----------------------------------------------------------------------------------------------------- //
+  // Delete customer with his id
   deleteCustomer: async (req, res) => {
     try {
       const customerId = req.params.customerId;
