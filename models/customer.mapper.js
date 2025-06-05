@@ -8,6 +8,13 @@ class CustomerMapper extends CoreMapper {
     const newCustomer = new this.customer(customerData);
     return await newCustomer.save();
   }
+
+  async updateCustomer(customerId, updateCustomerData) {
+    return await this.customer.findByIdAndUpdate(customerId, updateCustomerData, {
+      new: true,
+      runValidators: true,
+    });
+  }
 }
 
 module.exports = CustomerMapper;

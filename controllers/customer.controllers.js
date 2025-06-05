@@ -30,12 +30,26 @@ const customerControllers = {
     }
   },
 
-  getCustomers: (req, res) => {
-    console.log("GET");
+  updateCustomer: async (req, res) => {
+    try {
+      const customerId = req.params.customerId;
+      const updateCustomerData = { ...req.body };
+
+      delete updateCustomerData.user_id;
+
+      const updateCustomer = await CustomerMapper.updateCustomer(customerId, updateCustomerData);
+      res.status(200).json({
+        success: true,
+        data: updateCustomer.toJSON(),
+      });
+    } catch (error) {
+      console.error("❌ Erreur MAJ customer:", error);
+      res.status(500).json({ success: false, error: error.message });
+    }
   },
 
-  updateCustomer: (req, res) => {
-    console.log("PUT");
+  getCustomers: (req, res) => {
+    console.log("GET");
   },
 
   deleteCustomer: (req, res) => {
