@@ -41,7 +41,18 @@ const noteControllers = {
 
   // ----------------------------------------------------------------------------------------------------- //
   // Get all user's notes
-  getUserNotes: () => {},
+  getUserNotes: async (req, res) => {
+    try {
+      const userId = req.session.user._id;
+      const userNotes = await NoteMapper.getAllUserNotes(userId);
+      console.log(userNotes);
+
+      res.status(200).json({ success: true, data: userNotes });
+    } catch (error) {
+      console.error("❌ Erreur récupération des customers de l'utilisateur:", error);
+      res.status(500).json({ success: false, error: error.message });
+    }
+  },
 
   // ----------------------------------------------------------------------------------------------------- //
   // Delete note to DB
