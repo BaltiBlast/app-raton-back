@@ -16,6 +16,10 @@ class CustomerMapper extends CoreMapper {
     });
   }
 
+  async getAllUserCustomers(userId) {
+    return await this.customer.find({ user_id: userId }).select("-__v");
+  }
+
   async deleteCustomerById(customerId) {
     return await this.customer.findByIdAndDelete(customerId);
   }
