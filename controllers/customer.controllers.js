@@ -52,8 +52,15 @@ const customerControllers = {
     console.log("GET");
   },
 
-  deleteCustomer: (req, res) => {
-    console.log("DELETE");
+  deleteCustomer: async (req, res) => {
+    try {
+      const customerId = req.params.customerId;
+      const deleteCustomer = await CustomerMapper.deleteCustomerById(customerId);
+      res.status(201).json({ success: true, data: deleteCustomer });
+    } catch (error) {
+      console.error("❌ Erreur suppréssion customer:", error);
+      res.status(500).json({ success: false, error: error.message });
+    }
   },
 };
 

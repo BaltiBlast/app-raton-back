@@ -15,6 +15,10 @@ class CustomerMapper extends CoreMapper {
       runValidators: true,
     });
   }
+
+  async deleteCustomerById(customerId) {
+    return await this.customer.findByIdAndDelete(customerId);
+  }
 }
 
 module.exports = CustomerMapper;
