@@ -2,12 +2,21 @@
 const express = require("express");
 require("dotenv").config();
 const session = require("express-session");
+const cors = require("cors");
 
 // Local imports
 const router = require("./router");
 
 const { PORT, SESSION_SECRET_KEY, NODE_ENV } = process.env;
 const server = express();
+
+// CORS
+server.use(
+  cors({
+    origin: "http://localhost:8080",
+    credentials: true,
+  })
+);
 
 // JSON
 server.use(express.json());
@@ -28,7 +37,7 @@ server.use(
   })
 );
 
-server.use(router);
+server.use("/api", router);
 
 server.listen(PORT, () => {
   console.log(`The broche is turning on http://localhost:${PORT}`);
