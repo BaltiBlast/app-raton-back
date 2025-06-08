@@ -38,17 +38,30 @@ const authControllers = {
   // Log user already register
   login: async (req, res) => {
     try {
-      const { user_email, password } = req.body;
-      const user = await UserMapper.findUserByEmail(user_email);
+      const { email, password } = req.body;
+
+      const user = await UserMapper.findUserByEmail(email);
+
       const hashedPassword = user.password;
       const isPasswordMatch = await bcrypt.compare(password, hashedPassword);
 
       if (!isPasswordMatch) {
-        res.status(500).json({ success: false, message: "Informations invalides" });
+        return res.status(500).json({ success: false, message: "Informations invalides" });
       }
 
-      req.session.user = user;
-      res.status(200).json({ success: true, message: "Utilisateur connecté", user });
+      const userData = {
+        _id: user._id,
+        email: user.email,
+        user_firstname: user.user_firstname,
+        user_lastname: user.user_lastname,
+        user_phone: user.user_phone,
+        user_address: user.user_address,
+        createdAt: user.createdAt,
+        updatedAt: user.updatedAt,
+      };
+
+      req.session.user = userData;
+      res.status(200).json({ success: true, message: "Utilisateur connecté", user: userData });
     } catch (error) {
       console.error("❌ Erreur connexion utilisateur:", error);
       res.status(500).json({ success: false, error: error.message });
